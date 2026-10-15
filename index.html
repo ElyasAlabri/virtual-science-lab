@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>المختبر الافتراضي: الانتشار عبر أنبوبة الديلسة</title>
+<title>المختبر الافتراضي: الانتشار عبر أنبوبة الديلزة</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
 <style>
 :root{--bg:#eef3f1;--card:#fff;--tx:#17262b;--mut:#51666c;--ac:#0f6b78;--io:#d9731a;--bd:#cbd9d6;--ok:#17803f;--bad:#b3261e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -40,7 +40,7 @@ th,td{border:1px solid var(--bd);padding:5px 8px;text-align:center}th{background
 <body>
 <main>
 <header>
-<h1>المختبر الافتراضي: الانتشار عبر أنبوبة الديلسة</h1>
+<h1>المختبر الافتراضي: الانتشار عبر أنبوبة الديلزة</h1>
 <p class="mut">كيف يعبر اليود غشاءً شبه منفذ بينما يبقى النشا في مكانه؟ نفّذ الخطوات، شغّل المحاكاة، ثم أجب عن الأسئلة.</p>
 </header>
 
@@ -52,7 +52,7 @@ th,td{border:1px solid var(--bd);padding:5px 8px;text-align:center}th{background
 
 <section>
 <h2>٢) المحاكاة</h2>
-<canvas id="cv" width="520" height="340" aria-label="كأس يحوي محلول اليود وبداخله أنبوبة ديلزة فيها محلول النشا"></canvas>
+<canvas id="cv" width="520" height="370" aria-label="كأس يحوي محلول اليود وبداخله أنبوبة ديلزة فيها محلول النشا"></canvas>
 <div class="row">
 <button id="go" disabled>ابدأ</button><button id="pa" class="s">إيقاف مؤقت</button><button id="rs" class="s">إعادة</button>
 <label>سرعة: <select id="sp"><option value="1">عادية</option><option value="2">أسرع</option><option value="4">أسرع جدًا</option></select></label>
@@ -100,7 +100,7 @@ th,td{border:1px solid var(--bd);padding:5px 8px;text-align:center}th{background
 </section>
 </main>
 <script>
-const $=s=>document.querySelector(s),cv=$('#cv'),g=cv.getContext('2d'),W=520,H=340;
+const $=s=>document.querySelector(s),cv=$('#cv'),g=cv.getContext('2d'),W=520,H=370;
 const STEPS=["أحضر قطعة من أنبوبة الديلزة، بلّلها بالماء، وافركها حتى تنفتح.","اربط عقدة بأحد طرفَي الأنبوبة.","استخدم ماصّة واملأ الأنبوبة بحذر ببعض من محلول النشا.","اربط بإحكام الطرف المفتوح للأنبوبة باستخدام خيط.","اغسل الأنبوبة من الخارج بالماء للتخلص من أي نشا علق بها بالخطأ.","ضع كمية مناسبة من محلول اليود في كأس زجاجية كبيرة.","ضع بهدوء وحذر الأنبوبة في محلول اليود داخل الكأس، بحيث تُغمر كليًّا.","اترك الأنبوبة داخل الكأس الكبيرة نحو ١٠ دقائق (في المحاكاة: ١٠ دقائق افتراضية)."];
 $('#stl').innerHTML=STEPS.map((s,i)=>`<label class="st"><input type="checkbox" class="sc"><span><b>${i+1}.</b> ${s}</span></label>`).join('');
 const chk=()=>{$('#go').disabled=![...document.querySelectorAll('.sc')].every(c=>c.checked)};
@@ -123,7 +123,41 @@ function move(){P.forEach(p=>{if(p.go){p.x+=(p.tx-p.x)*.07;p.y+=(p.ty-p.y)*.07;i
  else{x=Math.max(76,Math.min(444,x));y=Math.max(66,Math.min(320,y));if(x>140&&x<400&&y>180&&y<270){x=p.x;y=p.y}}
  p.x=x;p.y=y});
  S.forEach(s=>{s.x=Math.max(165,Math.min(375,s.x+(Math.random()-.5)*1.6));s.y=Math.max(200,Math.min(250,s.y+(Math.random()-.5)*1.6))})}
-function draw(){const cs=getComputedStyle(document.documentElement),tx=cs.getPropertyValue('--tx').trim(),co=Cout();
+function draw(){const co=Cout(),tm=performance.now()/600,ci=Cin;
+ g.clearRect(0,0,W,H);
+ let b=g.createLinearGradient(0,0,0,H);b.addColorStop(0,'#e3edef');b.addColorStop(.88,'#c6d6da');b.addColorStop(.881,'#9a7852');b.addColorStop(1,'#6e5337');g.fillStyle=b;g.fillRect(0,0,W,H);
+ g.fillStyle='rgba(0,0,0,.2)';g.beginPath();g.ellipse(260,328,200,9,0,0,7);g.fill();
+ g.beginPath();g.moveTo(75,311);g.lineTo(75,60);for(let x=75;x<=445;x+=8)g.lineTo(x,60+Math.sin(x/22+tm)*1.5);g.lineTo(445,311);g.quadraticCurveTo(445,322,432,322);g.lineTo(88,322);g.quadraticCurveTo(75,322,75,311);g.closePath();
+ let w=g.createLinearGradient(0,60,0,322);w.addColorStop(0,`rgba(235,165,75,${.2+.3*co})`);w.addColorStop(1,`rgba(214,110,25,${.32+.4*co})`);
+ g.fillStyle='rgba(185,225,238,.4)';g.fill();g.fillStyle=w;g.fill();
+ g.beginPath();for(let x=75;x<=445;x+=8){const y=60+Math.sin(x/22+tm)*1.5;x==75?g.moveTo(x,y):g.lineTo(x,y)}g.strokeStyle='rgba(255,255,255,.75)';g.lineWidth=2;g.stroke();
+ for(let i=0;i<7;i++){const x=95+(i*53)%330+Math.sin(tm+i)*3,y=315-((tm*14+i*41)%250);if(x>135&&x<405&&y>175&&y<275)continue;g.beginPath();g.arc(x,y,2+i%3,0,7);g.strokeStyle='rgba(255,255,255,.7)';g.lineWidth=1;g.stroke()}
+ const u=Math.min(1,ci/.6),c0=[246,243,232],c1=[24,14,62],rgb=[0,1,2].map(i=>Math.round(c0[i]*(1-u)+c1[i]*u));
+ g.fillStyle='rgba(235,242,246,.85)';g.strokeStyle='rgba(90,110,120,.7)';g.lineWidth=1.2;
+ g.beginPath();g.moveTo(165,196);g.quadraticCurveTo(142,212,136,218);g.lineTo(136,232);g.quadraticCurveTo(142,238,165,254);g.closePath();g.fill();g.stroke();
+ g.beginPath();g.moveTo(375,196);g.quadraticCurveTo(398,212,404,218);g.lineTo(404,232);g.quadraticCurveTo(398,238,375,254);g.closePath();g.fill();g.stroke();
+ g.fillStyle='rgba(225,232,238,.95)';g.beginPath();g.ellipse(131,225,7,9,0,0,7);g.fill();g.stroke();
+ g.beginPath();g.moveTo(126,219);g.lineTo(116,211);g.moveTo(126,231);g.lineTo(116,240);g.stroke();
+ g.strokeStyle='#b8412f';g.lineWidth=4;g.beginPath();g.moveTo(402,214);g.lineTo(402,236);g.stroke();
+ g.lineWidth=1.6;g.beginPath();g.moveTo(402,214);g.quadraticCurveTo(414,204,424,208);g.moveTo(402,236);g.quadraticCurveTo(414,248,426,244);g.stroke();
+ g.beginPath();g.roundRect(152,192,236,66,30);g.fillStyle=`rgb(${rgb})`;g.fill();
+ let t2=g.createLinearGradient(0,192,0,258);t2.addColorStop(0,'rgba(255,255,255,.4)');t2.addColorStop(.35,'rgba(255,255,255,0)');t2.addColorStop(1,'rgba(0,0,0,.28)');g.fillStyle=t2;g.fill();
+ g.strokeStyle='rgba(235,245,250,.85)';g.lineWidth=2.5;g.stroke();g.strokeStyle='rgba(60,80,90,.55)';g.lineWidth=1;g.stroke();
+ g.fillStyle='rgba(40,60,70,.55)';for(let x=172;x<=370;x+=18){g.beginPath();g.arc(x,192,1.5,0,7);g.fill();g.beginPath();g.arc(x+9,258,1.5,0,7);g.fill()}
+ g.strokeStyle='rgba(255,255,255,.55)';g.lineWidth=3;g.lineCap='round';g.beginPath();g.moveTo(180,203);g.lineTo(355,203);g.stroke();g.lineCap='butt';
+ g.strokeStyle='rgba(255,255,255,.2)';g.lineWidth=1;g.beginPath();g.moveTo(168,198);g.quadraticCurveTo(162,225,168,252);g.moveTo(372,198);g.quadraticCurveTo(378,225,372,252);g.stroke();
+ S.forEach(s=>{g.beginPath();g.arc(s.x,s.y,6,0,7);g.fillStyle='rgba(255,255,255,.7)';g.fill();g.strokeStyle='rgba(60,60,60,.4)';g.lineWidth=1;g.stroke()});
+ P.forEach(p=>{g.beginPath();g.arc(p.x,p.y,2.6,0,7);g.fillStyle='#ff9d2e';g.fill();g.strokeStyle='rgba(120,50,0,.6)';g.lineWidth=.8;g.stroke()});
+ g.beginPath();g.moveTo(72,30);g.lineTo(72,311);g.quadraticCurveTo(72,325,86,325);g.lineTo(434,325);g.quadraticCurveTo(448,325,448,311);g.lineTo(448,30);
+ g.strokeStyle='rgba(255,255,255,.7)';g.lineWidth=5;g.stroke();g.strokeStyle='rgba(70,100,112,.7)';g.lineWidth=1.4;g.stroke();
+ g.beginPath();g.moveTo(62,30);g.lineTo(458,30);g.strokeStyle='rgba(255,255,255,.9)';g.lineWidth=4;g.lineCap='round';g.stroke();g.strokeStyle='rgba(70,100,112,.7)';g.lineWidth=1;g.stroke();g.lineCap='butt';
+ let r=g.createLinearGradient(78,0,100,0);r.addColorStop(0,'rgba(255,255,255,.55)');r.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=r;g.fillRect(78,40,22,265);
+ g.fillStyle='rgba(255,255,255,.3)';g.fillRect(430,40,5,230);
+ g.strokeStyle='rgba(50,70,80,.8)';g.fillStyle='rgba(50,70,80,.9)';g.lineWidth=1.2;g.font='10px sans-serif';g.textAlign='right';
+ [[100,'400'],[160,'300'],[220,'200'],[280,'100']].forEach(([y,l])=>{g.beginPath();g.moveTo(446,y);g.lineTo(428,y);g.moveTo(446,y+30);g.lineTo(437,y+30);g.stroke();g.fillText(l,424,y+3)});
+ const lab=(s,x,y,f)=>{g.font=`700 ${f}px Tajawal,sans-serif`;g.textAlign='center';g.lineWidth=4;g.strokeStyle='rgba(255,255,255,.85)';g.strokeText(s,x,y);g.fillStyle='#17262b';g.fillText(s,x,y)};
+ lab('محلول اليود',260,50,14);lab('أنبوبة الديلزة: محلول النشا',270,284,14);lab('ثقوب الغشاء تسمح بعبور اليود فقط',260,306,12)}
+function draw0(){const cs=getComputedStyle(document.documentElement),tx=cs.getPropertyValue('--tx').trim(),co=Cout();
  g.clearRect(0,0,W,H);
  g.fillStyle=`rgba(235,140,40,${.15+.5*co})`;g.fillRect(70,60,380,265);
  g.strokeStyle=tx;g.lineWidth=3;g.beginPath();g.moveTo(70,30);g.lineTo(70,325);g.lineTo(450,325);g.lineTo(450,30);g.stroke();
